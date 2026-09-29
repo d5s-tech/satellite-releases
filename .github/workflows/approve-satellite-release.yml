@@ -1,0 +1,38 @@
+name: Satellite release approval
+run-name: Approve Satellite v${{ inputs.version }} from ${{ inputs.source_sha }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Reviewed Satellite chart version, for example 0.1.0
+        required: true
+        type: string
+      source_sha:
+        description: Exact 40-character commit SHA currently on private monorepo main
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  approve:
+    if: github.repository == 'd5s-tech/satellite-releases'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: satellite-public-release
+    steps:
+      - name: Verify release request
+        env:
+          VERSION: ${{ inputs.version }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+        run: |
+          set -euo pipefail
+          [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          [[ "$SOURCE_SHA" =~ ^[0-9a-f]{40}$ ]]
+          {
+            echo "Approved request: Satellite v$VERSION"
+            echo "Private source commit: $SOURCE_SHA"
+            echo "Approval workflow run: $GITHUB_RUN_ID"
+            echo "The private release workflow must independently verify this run and its reviewer before publication."
+          } >> "$GITHUB_STEP_SUMMARY"
