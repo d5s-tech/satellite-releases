@@ -4,7 +4,7 @@ Connect your Kubernetes cluster to d5s so authorized agents can read cluster res
 
 This repository contains release downloads and the release approval workflow. Satellite's runtime source is private.
 
-> **Release status:** Version 0.2.0 has passed its build and security scans. Public downloads are not enabled yet. Installation requires access to the release packages until publication is complete.
+**Version 0.2.0 is available.** Download the public chart, container image, or [Linux binaries and checksums](https://github.com/d5s-tech/satellite-releases/releases/tag/satellite-v0.2.0). Registry sign-in is not required.
 
 ## Connect your cluster
 
@@ -42,7 +42,7 @@ The chart pins the scanned container image. It supports Linux **amd64** and **ar
 
 ### Standalone binaries
 
-[Releases](https://github.com/d5s-tech/satellite-releases/releases) contains published downloads when available. Verify each archive against its `SHA256SUMS` file before use.
+Download the Linux **amd64** or **arm64** archive from [Releases](https://github.com/d5s-tech/satellite-releases/releases). Verify it against the release's `SHA256SUMS` file before use.
 
 Standalone installations also require a reviewed kubeconfig, enrollment credentials, TLS, and host network rules. Helm is the recommended installation method.
 
